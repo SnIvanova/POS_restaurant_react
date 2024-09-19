@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useCallback  } from 'react';
 
 import Modal from '../UI/Modal';
 import CartItem from './CartItem';
@@ -11,13 +11,13 @@ const Cart = (props) => {
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
 
-  const cartItemRemoveHandler = (id) => {
+  const cartItemRemoveHandler = useCallback((id) => {
     cartCtx.removeItem(id);
-  };
+  }, [cartCtx]);
 
-  const cartItemAddHandler = (item) => {
+  const cartItemAddHandler = useCallback((item) => {
     cartCtx.addItem({ ...item, amount: 1 });
-  };
+  }, [cartCtx]);
 
   const cartItems = (
     <ul className={classes['cart-items']}>
